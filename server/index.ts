@@ -1,25 +1,26 @@
 import express from 'express'
 import * as giphyService from "./services/giphyService";
 import * as pixabayService from "./services/pixabayService";
-
+import shuffle from 'lodash/shuffle'
 import es6promise from 'es6-promise'
 import 'isomorphic-fetch'
 
 es6promise.polyfill()
 const app = express()
 const port = 3000
-app.get('/', (req, res) => res.send('Hello World2!'))
 
-app.get('/giphy/:term', async (req, res) => {
-  const response = await giphyService.fetchGifs(req.params.term, {})
+app.get('/api/items', async (req, res) => {
+  const pixabayPromise = pixabayService.fetchItems(req.query.term, req.query.page)
+  const giphyPromise = giphyService.fetchItems(req.query.term, req.query.page)
+  const [pixabayRes, giphyRes] = await Promise.all([pixabayPromise, giphyPromise])
 
-  return res.json(response)
-})
 
-app.get('/pixabay/:term', async (req, res) => {
-  const response = await pixabayService.fetchGifs(req.params.term, {})
+  const results = shuffle([
+    ...pixabayRes,
+    ...giphyRes
+  ])
 
-  return res.json(response)
+  return res.json(results)
 })
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
