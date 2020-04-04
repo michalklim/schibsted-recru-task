@@ -11,20 +11,20 @@ module.exports = () => (
       output: {
         path: path.resolve('dist', 'server'),
         filename: 'index.js',
-        libraryTarget: 'commonjs',
+        libraryTarget: 'umd',
         library: pkg.name + '-backend',
       },
       module: {
         rules: [
-          {
-            enforce: 'pre',
-            test: /\.(ts)$/,
-            exclude: /node_modules/,
-            loader: 'eslint-loader',
-            options: {
-              emitError: false,
-            },
-          },
+          // {
+          //   enforce: 'pre',
+          //   test: /\.(ts)$/,
+          //   exclude: /node_modules/,
+          //   loader: 'eslint-loader',
+          //   options: {
+          //     emitError: false,
+          //   },
+          // },
           {
             test: /\.(ts)$/,
             exclude: /node_modules/,

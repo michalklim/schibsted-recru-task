@@ -8,6 +8,5 @@ es6promise.polyfill()
 const app = express()
 
 app.use('/api/items', itemsRouter)
-
 export {app}
 

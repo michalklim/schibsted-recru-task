@@ -10,30 +10,23 @@
   "license": "MIT",
   "scripts": {
     "dev:server": "tsnd -r dotenv/config server/index.ts",
-    "build:server": "webpack --config server/webpack.production.js"
+    "build:server": "webpack --config server/webpack.production.js",
+    "start:server": "node dist/server"
   },
   "devDependencies": {
-    "@babel/core": "7.9.0",
-    "@babel/preset-env": "7.9.0",
-    "@babel/preset-react": "7.9.0",
-    "@babel/preset-typescript": "7.9.0",
     "@types/express": "4.17.4",
     "@types/isomorphic-fetch": "0.0.35",
     "@types/lodash": "4.14.149",
     "@typescript-eslint/eslint-plugin": "2.26.0",
     "@typescript-eslint/parser": "2.26.0",
-    "babel-loader": "8.1.0",
-    "eslint": "6.8.0",
-    "eslint-config-prettier": "6.10.0",
-    "eslint-loader": "3.0.3",
-    "eslint-plugin-react": "7.19.0",
-    "eslint-plugin-react-hooks": "3.0.0",
-    "ts-node-dev": "1.0.0-pre.44",
-    "typescript": "3.8.3",
-    "webpack": "4.42.1",
-    "webpack-cli": "3.3.11"
+    "ts-node-dev": "1.0.0-pre.44"
   },
   "dependencies": {
+    "@babel/core": "7.9.0",
+    "@babel/preset-env": "7.9.0",
+    "@babel/preset-react": "7.9.0",
+    "@babel/preset-typescript": "7.9.0",
+    "@babel/plugin-transform-runtime": "7.9.0",
     "@giphy/js-fetch-api": "1.5.6",
     "dotenv": "8.2.0",
     "es6-promise": "4.2.8",
@@ -41,6 +34,15 @@
     "isomorphic-fetch": "2.2.1",
     "lodash": "4.17.15",
     "querystring": "0.2.0",
-    "serverless-http": "2.3.2"
+    "serverless-http": "2.3.2",
+    "babel-loader": "8.1.0",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.10.0",
+    "eslint-loader": "3.0.3",
+    "eslint-plugin-react": "7.19.0",
+    "eslint-plugin-react-hooks": "3.0.0",
+    "typescript": "3.8.3",
+    "webpack": "4.42.1",
+    "webpack-cli": "3.3.11"
   }
 }
