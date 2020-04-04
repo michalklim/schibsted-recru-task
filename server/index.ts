@@ -1,26 +1,11 @@
-import express from 'express'
-import * as giphyService from "./services/giphyService";
-import * as pixabayService from "./services/pixabayService";
-import shuffle from 'lodash/shuffle'
-import es6promise from 'es6-promise'
-import 'isomorphic-fetch'
+import {app} from "./server";
 
-es6promise.polyfill()
-const app = express()
-const port = 3000
+if(process.env.NODE_ENV === 'development') {
+  const PORT = 3000
+  app.listen(PORT, () => console.log(`Example app listening at http://localhost:${PORT}`))
+}
 
-app.get('/api/items', async (req, res) => {
-  const pixabayPromise = pixabayService.fetchItems(req.query.term, req.query.page)
-  const giphyPromise = giphyService.fetchItems(req.query.term, req.query.page)
-  const [pixabayRes, giphyRes] = await Promise.all([pixabayPromise, giphyPromise])
-
-
-  const results = shuffle([
-    ...pixabayRes,
-    ...giphyRes
-  ])
-
-  return res.json(results)
-})
-
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+if(process.env.NODE_ENV === 'production') {
+  const serverless = require('serverless-http');
+  module.exports.handler = serverless(app)
+}
