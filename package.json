@@ -8,6 +8,9 @@
   },
   "author": "Michal Klim <michal.wklim@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev:server": "tsnd server/index.ts"
+  },
   "devDependencies": {
     "@types/express": "4.17.4",
     "ts-node-dev": "1.0.0-pre.44",
