@@ -1,5 +1,7 @@
 import express from 'express'
-import {fetchGifs} from "./services/giphyService";
+import * as giphyService from "./services/giphyService";
+import * as pixabayService from "./services/pixabayService";
+
 import es6promise from 'es6-promise'
 import 'isomorphic-fetch'
 
@@ -9,7 +11,13 @@ const port = 3000
 app.get('/', (req, res) => res.send('Hello World2!'))
 
 app.get('/giphy/:term', async (req, res) => {
-  const response = await fetchGifs(req.params.term, {})
+  const response = await giphyService.fetchGifs(req.params.term, {})
+
+  return res.json(response)
+})
+
+app.get('/pixabay/:term', async (req, res) => {
+  const response = await pixabayService.fetchGifs(req.params.term, {})
 
   return res.json(response)
 })
