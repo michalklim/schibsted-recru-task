@@ -4,6 +4,7 @@ import 'isomorphic-fetch'
 import cors from 'cors'
 import morgan from "morgan";
 import {itemsRouter} from "./items";
+import serverless from "serverless-http";
 
 
 es6promise.polyfill()
@@ -22,3 +23,6 @@ app.use(cors({
 app.use('/api/items', itemsRouter)
 export {app}
 
+export const handler = serverless(app,{
+  basePath: '/.netlify/functions/index'
+})

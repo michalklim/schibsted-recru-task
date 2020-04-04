@@ -1,13 +1,15 @@
 const webpack = require('webpack')
 const pkg = require('../package.json')
 const path = require('path')
+const Dotenv = require('dotenv-webpack');
+
 module.exports = () => (
     {
-      plugins: [new webpack.ProgressPlugin()],
+      plugins: [new webpack.ProgressPlugin(), new Dotenv()],
       mode: 'production',
       target: 'node',
       devtool: 'source-map',
-      entry: path.resolve('server', 'index.ts'),
+      entry: path.resolve('server', 'server.ts'),
       output: {
         path: path.resolve('dist', 'server'),
         filename: 'index.js',
