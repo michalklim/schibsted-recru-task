@@ -4,6 +4,7 @@ const Dotenv = require('dotenv-webpack')
 const webpack = require('webpack')
 const path = require('path')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -35,6 +36,11 @@ module.exports = {
     alias: {
       'react-dom': '@hot-loader/react-dom',
     },
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: path.resolve(__dirname, 'tsconfig.json'),
+      }),
+    ],
   },
   plugins: [
     new HtmlWebPackPlugin({
@@ -47,6 +53,9 @@ module.exports = {
     new ForkTsCheckerWebpackPlugin({
       eslint: true,
       tsconfig: path.resolve(__dirname, 'tsconfig.json'),
+    }),
+    new TsconfigPathsPlugin({
+      configFile: path.resolve(__dirname, 'tsconfig.json'),
     }),
   ],
 }

@@ -1,12 +1,25 @@
-import React from 'react'
+import React, { Fragment, FunctionComponent, useState } from 'react'
+import { SearchForm } from 'components/SearchForm'
+import { Image } from 'components/Image'
+import { Item } from 'server/types'
+import { getItems } from 'services/getItems'
 
-class App extends React.Component {
-  componentDidMount(): void {
-    console.log('hurra3')
+export const App: FunctionComponent = () => {
+  const [currentPage] = useState(1)
+  const [items, setItems] = useState<Item[]>([])
+
+  const handleSearchFormSubmit = async (value: string) => {
+    const fetchedItems = await getItems(value, currentPage)
+
+    setItems(fetchedItems)
   }
 
-  render() {
-    return <div>My App Component3</div>
-  }
+  return (
+    <Fragment>
+      <SearchForm onSubmit={handleSearchFormSubmit} />
+      {items.map((item) => (
+        <Image key={item.id} item={item} />
+      ))}
+    </Fragment>
+  )
 }
-export default App

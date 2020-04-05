@@ -1,4 +1,4 @@
-interface ImageResponse {
+export interface ImageResponse {
   src: string
   size: {
     height: number
@@ -6,7 +6,7 @@ interface ImageResponse {
   }
 }
 
-interface Item {
+export interface Item {
   type: 'photo' | 'gif'
   id: string
   image: ImageResponse

@@ -3,7 +3,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 const webpack = require('webpack')
 const path = require('path')
-
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 module.exports = {
   mode: 'production',
   entry: ['react-hot-loader/patch', path.resolve(__dirname, 'src', 'index.tsx')],
@@ -39,6 +39,11 @@ module.exports = {
     alias: {
       'react-dom': '@hot-loader/react-dom',
     },
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: path.resolve(__dirname, 'tsconfig.json'),
+      }),
+    ],
   },
   plugins: [
     new HtmlWebPackPlugin({
