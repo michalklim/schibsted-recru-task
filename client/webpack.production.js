@@ -3,21 +3,25 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 const webpack = require('webpack')
 const path = require('path')
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: ['react-hot-loader/patch', path.resolve(__dirname, 'src', 'index.tsx')],
   output: {
-    path: path.resolve('.tmp'),
+    path: path.resolve('dist', 'client'),
     filename: 'index.js',
   },
-  devServer: {
-    hot: true,
-  },
-  devtool: 'inline-source-map',
   module: {
     rules: [
+      {
+        enforce: 'pre',
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          emitError: true,
+        },
+      },
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
@@ -44,9 +48,5 @@ module.exports = {
     new CleanWebpackPlugin(),
     new webpack.ProgressPlugin(),
     new Dotenv(),
-    new ForkTsCheckerWebpackPlugin({
-      eslint: true,
-      tsconfig: path.resolve(__dirname, 'tsconfig.json'),
-    }),
   ],
 }
