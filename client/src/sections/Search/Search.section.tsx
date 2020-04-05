@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef } from 'react'
+import React, { FunctionComponent, useEffect } from 'react'
 import { RouteComponentProps, useParams } from '@reach/router'
 import styled from 'styled-components'
 import { useSpring } from 'react-spring'
@@ -13,17 +13,19 @@ const Section = styled.div`
 `
 
 export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
-  const { _, y } = useWindowScroll()
+  const { y } = useWindowScroll()
   const [, setY] = useSpring(() => ({ y }))
   const params = useParams()
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     setY({
       y: window.innerHeight,
       from: { y },
       onFrame: (props) => window.scroll(0, props.y),
     })
-  }, [params?.term])
+  }, [params.term])
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return <Section>search section</Section>
 }
