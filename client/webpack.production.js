@@ -52,6 +52,8 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     new webpack.ProgressPlugin(),
-    new Dotenv(),
+    new Dotenv({
+      systemvars: true,
+    }),
   ],
 }

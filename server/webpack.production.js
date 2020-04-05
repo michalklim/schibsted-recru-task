@@ -4,7 +4,12 @@ const path = require('path')
 const Dotenv = require('dotenv-webpack')
 
 module.exports = () => ({
-  plugins: [new webpack.ProgressPlugin(), new Dotenv()],
+  plugins: [
+    new webpack.ProgressPlugin(),
+    new Dotenv({
+      systemvars: true,
+    }),
+  ],
   mode: 'production',
   target: 'node',
   devtool: 'source-map',
