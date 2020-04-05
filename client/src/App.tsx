@@ -1,25 +1,37 @@
-import React, { Fragment, FunctionComponent, useState } from 'react'
-import { SearchForm } from 'components/SearchForm'
-import { Image } from 'components/Image'
-import { Item } from 'server/types'
-import { getItems } from 'services/getItems'
+import React, { FunctionComponent } from 'react'
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { Router } from '@reach/router'
+
+import { appTheme } from 'theme'
+import { HomeSection } from 'sections/Home'
+import { SearchSection } from 'sections/Search'
+import { normalize } from 'polished'
+
+const GlobalStyle = createGlobalStyle`
+  ${normalize()}
+  
+  html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  body {
+    font-family: ${({ theme }) => theme.typo.primaryFont};
+  }
+`
 
 export const App: FunctionComponent = () => {
-  const [currentPage] = useState(1)
-  const [items, setItems] = useState<Item[]>([])
-
-  const handleSearchFormSubmit = async (value: string) => {
-    const fetchedItems = await getItems(value, currentPage)
-
-    setItems(fetchedItems)
-  }
-
   return (
-    <Fragment>
-      <SearchForm onSubmit={handleSearchFormSubmit} />
-      {items.map((item) => (
-        <Image key={item.id} item={item} />
-      ))}
-    </Fragment>
+    <ThemeProvider theme={appTheme}>
+      <GlobalStyle />
+      <Router>
+        <HomeSection path="*" />
+      </Router>
+      <Router primary={false}>
+        <SearchSection path="/search/:term/:page" />
+      </Router>
+    </ThemeProvider>
   )
 }

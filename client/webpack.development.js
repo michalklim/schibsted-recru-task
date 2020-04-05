@@ -12,9 +12,11 @@ module.exports = {
   output: {
     path: path.resolve('.tmp'),
     filename: 'index.js',
+    publicPath: '/',
   },
   devServer: {
     hot: true,
+    historyApiFallback: true,
   },
   devtool: 'inline-source-map',
   module: {
@@ -53,9 +55,6 @@ module.exports = {
     new ForkTsCheckerWebpackPlugin({
       eslint: true,
       tsconfig: path.resolve(__dirname, 'tsconfig.json'),
-    }),
-    new TsconfigPathsPlugin({
-      configFile: path.resolve(__dirname, 'tsconfig.json'),
     }),
   ],
 }
