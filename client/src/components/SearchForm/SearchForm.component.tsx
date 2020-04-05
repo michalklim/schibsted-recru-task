@@ -35,7 +35,7 @@ export const SearchForm: FunctionComponent<Props> = ({ onSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
       <Input type="text" onChange={handleChange} placeholder="e.g. cats" />
-      <SubmitButton type="submit"> search</SubmitButton>
+      <SubmitButton type="submit">search</SubmitButton>
     </form>
   )
 }

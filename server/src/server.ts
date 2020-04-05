@@ -15,13 +15,11 @@ app.disable('x-powered-by')
 const morganFormat = process.env.CONTEXT === 'production' ? 'tiny' : 'dev'
 app.use(morgan(morganFormat))
 
-if (!!process.env.CONTEXT) {
-  app.use(
-    cors({
-      origin: process.env.URL,
-    }),
-  )
-}
+app.use(
+  cors({
+    origin: !!process.env.CONTEXT ? process.env.URL : 'http://localhost:8080',
+  }),
+)
 
 app.use('/api/items', itemsRouter)
 export { app }
