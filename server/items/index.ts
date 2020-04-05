@@ -1,1 +1,1 @@
-export {itemsRouter} from './items.router'
+export { itemsRouter } from './items.router'

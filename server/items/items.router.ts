@@ -4,6 +4,4 @@ import * as controllers from './items.controllers'
 export const itemsRouter = Router()
 
 // /api/items
-itemsRouter
-  .route('/')
-  .get(controllers.getMany)
+itemsRouter.route('/').get(controllers.getMany)
