@@ -3,7 +3,8 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+    'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
   ],
   parserOptions: {
     ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features

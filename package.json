@@ -11,7 +11,8 @@
   "scripts": {
     "dev:server": "tsnd -r dotenv/config server/index.ts",
     "build:server": "webpack --config server/webpack.production.js",
-    "start:server": "node dist/server"
+    "start:server": "node dist/server",
+    "format": "prettier --write '{,!(dist|client|node_modules)/**/}*.(ts|tsx|js)'"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
@@ -28,10 +29,13 @@
     "babel-loader": "8.1.0",
     "dotenv-webpack": "1.7.0",
     "eslint": "6.8.0",
-    "eslint-config-prettier": "6.10.0",
+    "eslint-config-prettier": "6.10.1",
     "eslint-loader": "3.0.3",
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-hooks": "3.0.0",
+    "husky": "4.2.3",
+    "prettier": "2.0.2",
+    "pretty-quick": "2.0.1",
     "ts-node-dev": "1.0.0-pre.44",
     "typescript": "3.8.3",
     "webpack": "4.42.1",
@@ -49,5 +53,10 @@
     "morgan": "1.10.0",
     "querystring": "0.2.0",
     "serverless-http": "2.3.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
