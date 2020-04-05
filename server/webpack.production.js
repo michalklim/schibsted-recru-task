@@ -8,7 +8,7 @@ module.exports = () => ({
   mode: 'production',
   target: 'node',
   devtool: 'source-map',
-  entry: path.resolve('server', 'server.ts'),
+  entry: path.resolve(__dirname, 'src', 'server.ts'),
   output: {
     path: path.resolve('dist', 'server'),
     filename: 'index.js',
