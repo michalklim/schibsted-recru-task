@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect } from 'react'
-import { RouteComponentProps, useNavigate, useParams } from '@reach/router'
+import { RouteComponentProps, useNavigate } from '@reach/router'
 import styled from 'styled-components'
 
 import giphyAttributionImg from 'static/giphy_attribution.png'

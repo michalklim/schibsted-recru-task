@@ -93,12 +93,10 @@ export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
   )
 
   const [, setY] = useSpring(() => ({
-    y: 0,
-    onRest: () => null,
+    y: window.innerHeight,
     onFrame: (props: { y: number }) => {
-      null
+      window.scroll(0, props.y)
     },
-    config: config.slow,
   }))
 
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -149,7 +147,7 @@ export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
         <SearchForm onSubmit={changeTerm} />
       </Header>
       {!!params?.term && !!items.length && (
-        <ListTitle style={enterAnimation}>Search results for: '{params.term}'</ListTitle>
+        <ListTitle style={enterAnimation}>Search results for: &apos;{params.term}&apos;</ListTitle>
       )}
       <ImagesList>
         {itemsTransitions.map(({ item, props, key }) => (
