@@ -14,7 +14,6 @@
     "build:server": "cross-env NODE_ENV=production webpack --config server/webpack.production.js",
     "build:client": "cross-env NODE_ENV=production webpack --config client/webpack.production.js",
     "prepare-deploy": "yarn build:server && yarn build:client",
-    "start:server": "node dist/server",
     "format": "prettier --write '{,!(dist|client|node_modules)/**/}*.(ts|tsx|js)'"
   },
   "devDependencies": {
