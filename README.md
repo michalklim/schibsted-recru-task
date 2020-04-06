@@ -11,32 +11,26 @@ to the client app. You can see current version o the app [here](https://suspicio
 
 ### Client
 
-- React
-- styled-components
-- react-spring
-- Reach router
+- [React](https://pl.reactjs.org/)
+- [styled-components](https://styled-components.com/)
+- [react-spring](https://www.react-spring.io/)
+- [Reach router](https://reach.tech/router)
 
 ### Server
 
-- Express.js
+- [Express.js](https://expressjs.com/)
+- [Morgan](https://www.npmjs.com/package/morgan)
+- [Cors](https://www.npmjs.com/package/cors)
 
 ### Configuration
 
-- Babel
-- Webpack
-- Eslint
-- Prettier
-- Commitlint
+- [Babel](https://babeljs.io/)
+- [Webpack](https://webpack.js.org/)
+- [Eslint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [Commitlint](https://commitlint.js.org/#/)
 
-## Server
-
-It is fairly standard express server with one exception. Express app is
-additionally wrapped and exported with serverless hoc so it can be hosted
-using lambda functions
-
-## Client
-
-## Contributing
+## Usage
 
 To run project in development mode you have to start both server and client app.
 
@@ -81,6 +75,17 @@ Both of those are used by `prepare-deploy` which runs during CD after successful
 
 Please note that both `build` commands run eslint and typescript check before actual bundling and
 will fail if any of those checks produces and error
+
+## Server
+
+It is fairly standard express server with one exception. Express app is
+additionally wrapped and exported with serverless hoc so it can be hosted
+using lambda functions
+
+## Client
+
+Webpack dev is proxying every request to `/api` and reroutes it to `http://localhost:3000`
+to omit cors policies in dev environment
 
 ## Additional configurations
 
