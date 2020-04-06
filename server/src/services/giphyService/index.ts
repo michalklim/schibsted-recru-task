@@ -1,6 +1,6 @@
 import { GifsResult, GiphyFetch, SearchOptions } from '@giphy/js-fetch-api'
-import { ITEMS_PER_PAGE } from 'common/constants'
-import { Item } from 'common/types'
+import { ITEMS_PER_PAGE } from '../../common/constants'
+import { Item } from '../../common/types'
 
 const gf = new GiphyFetch(process.env.GIPHY_TOKEN || '')
 

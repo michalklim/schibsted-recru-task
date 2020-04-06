@@ -1,8 +1,8 @@
 import fetch from 'isomorphic-fetch'
 import qs from 'querystring'
 
-import { ITEMS_PER_PAGE } from 'common/constants'
-import { Item } from 'common/types'
+import { ITEMS_PER_PAGE } from '../../common/constants'
+import { Item } from '../../common/types'
 
 interface PixabayImage {
   id: number
