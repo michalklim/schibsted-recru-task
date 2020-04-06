@@ -17,7 +17,7 @@ app.use(morgan(morganFormat))
 
 app.use(
   cors({
-    origin: !!process.env.CONTEXT ? process.env.URL : 'http://localhost:8080',
+    origin: process.env.URL,
   }),
 )
 

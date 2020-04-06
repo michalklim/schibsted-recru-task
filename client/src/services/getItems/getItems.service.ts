@@ -7,7 +7,7 @@ export const getItems = async (term: string, page: number): Promise<Item[]> => {
     term,
     page,
   }
-  const baseUrl = `${process.env.URL}${process.env.CONTEXT ? '/.netlify/functions/index' : ''}`
+  const baseUrl = `${process.env.CONTEXT ? '/.netlify/functions/index' : ''}`
   const response = await fetch(`${baseUrl}/api/items?${qs.stringify(params)}`)
   const json = await response.json()
 
