@@ -16,4 +16,10 @@ export const appTheme: DefaultTheme = {
     secondaryFont: 'Open Sans, sans-serif',
   },
   ms: (step) => modularScale(step, '1rem', 'majorSecond'),
+  breakpoints: {
+    mobileM: '(min-width: 375px)',
+    tablet: '(min-width: 768px)',
+    desktop: '(min-width: 1024px)',
+    desktopL: '(min-width: 1440px)',
+  },
 }

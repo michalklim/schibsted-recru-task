@@ -21,6 +21,14 @@ const Section = styled.section`
   left: 0;
 `
 
+const HomeSearchForm = styled(SearchForm)`
+  width: 100%;
+
+  @media ${({ theme }) => theme.breakpoints.tablet} {
+    width: auto;
+  }
+`
+
 const Container = animated(styled.div`
   flex-grow: 1;
   width: 100%;
@@ -28,9 +36,16 @@ const Container = animated(styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: ${({ theme }) => theme.ms(0)};
 `)
 
-const Heading = styled.h1``
+const Heading = styled.h1`
+  margin: 0 0 ${({ theme }) => theme.ms(12)};
+
+  @media ${({ theme }) => theme.breakpoints.tablet} {
+    margin: 0 0 ${({ theme }) => theme.ms(6)};
+  }
+`
 
 const Footer = styled.footer`
   width: 100%;
@@ -42,14 +57,24 @@ const Footer = styled.footer`
 
 const Attributions = styled.div`
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto;
   grid-gap: ${({ theme }) => theme.ms(0)};
-  align-items: center;
+  grid-template-rows: auto auto auto;
+  justify-items: center;
+
+  @media ${({ theme }) => theme.breakpoints.desktop} {
+    grid-template-columns: auto auto auto;
+    align-items: center;
+  }
 `
 
 const AttributionImg = styled.img`
-  height: ${({ theme }) => theme.ms(4)};
+  height: ${({ theme }) => theme.ms(2)};
   width: auto;
+
+  @media ${({ theme }) => theme.breakpoints.desktop} {
+    height: ${({ theme }) => theme.ms(4)};
+  }
 `
 
 const Sign = styled.small`
@@ -88,7 +113,7 @@ export const HomeSection: FunctionComponent<RouteComponentProps> = () => {
     <Section>
       <Container style={{ opacity: interptOpacity, transform: interptTransform }}>
         <Heading>Schibsted Recru App</Heading>
-        <SearchForm onSubmit={handleSearchFormSubmit} />
+        <HomeSearchForm onSubmit={handleSearchFormSubmit} />
       </Container>
       <Footer>
         <Attributions>

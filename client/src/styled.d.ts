@@ -16,5 +16,11 @@ declare module 'styled-components' {
       secondaryFont: string
     }
     ms: (step: number) => string
+    breakpoints: {
+      mobileM: string
+      tablet: string
+      desktop: string
+      desktopL: string
+    }
   }
 }

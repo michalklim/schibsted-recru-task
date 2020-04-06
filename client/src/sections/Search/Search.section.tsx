@@ -19,35 +19,77 @@ const Section = styled.div`
 
 const Header = animated(styled.header`
   display: flex;
-  padding: ${({ theme }) => theme.ms(2)} 10%;
+  padding: ${({ theme }) => theme.ms(0)};
   background: ${({ theme }) => theme.colors.secondary};
   align-items: center;
   position: sticky;
   top: 0;
   z-index: ${({ theme }) => theme.layers.top};
   opacity: 0;
+
+  @media ${({ theme }) => theme.breakpoints.tablet} {
+    padding: ${({ theme }) => theme.ms(2)} ${({ theme }) => theme.ms(2)};
+  }
+
+  @media ${({ theme }) => theme.breakpoints.desktop} {
+    padding: ${({ theme }) => theme.ms(2)} 10%;
+  }
 `)
+
+const HeaderSearchForm = styled(SearchForm)`
+  width: 100%;
+
+  @media ${({ theme }) => theme.breakpoints.tablet} {
+    width: auto;
+  }
+`
 
 const ListTitle = animated(styled.h3`
   color: ${({ theme }) => theme.colors.secondary};
-  margin: ${({ theme }) => theme.ms(4)} 10% ${({ theme }) => theme.ms(2)};
-  padding: 0 ${({ theme }) => theme.ms(3)};
+  margin: ${({ theme: { ms } }) => `${ms(4)} ${ms(0)} ${ms(2)}`};
+
+  @media ${({ theme }) => theme.breakpoints.tablet} {
+    margin: ${({ theme: { ms } }) => `${ms(4)} ${ms(2)} ${ms(2)}`};
+    padding: 0 ${({ theme }) => theme.ms(3)};
+  }
+
+  @media ${({ theme }) => theme.breakpoints.desktop} {
+    margin: ${({ theme: { ms } }) => `${ms(4)} 10% ${ms(2)}`};
+  }
 `)
 
 const Logo = styled.h2`
-  margin: 0 ${({ theme }) => theme.ms(3)};
+  display: none;
+
+  @media ${({ theme }) => theme.breakpoints.tablet} {
+    display: inline-block;
+    margin: 0 ${({ theme }) => theme.ms(3)};
+  }
 `
 
 const ImageContainer = animated(styled.li`
-  max-width: 50%;
-  padding: ${({ theme }) => theme.ms(2)};
+  padding: ${({ theme }) => theme.ms(2)} 0;
+
+  @media ${({ theme }) => theme.breakpoints.tablet} {
+    padding: ${({ theme }) => theme.ms(3)};
+    max-width: 50%;
+  }
 `)
 
 const ImagesList = styled.ul`
   margin: 0;
-  padding: ${({ theme }) => theme.ms(3)} 10%;
+  padding: ${({ theme }) => theme.ms(3)} ${({ theme }) => theme.ms(0)};
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+
+  @media ${({ theme }) => theme.breakpoints.tablet} {
+    padding: ${({ theme }) => theme.ms(2)};
+  }
+
+  @media ${({ theme }) => theme.breakpoints.desktop} {
+    padding: ${({ theme }) => theme.ms(2)} 10%;
+  }
 `
 const Footer = styled.footer`
   width: 100%;
@@ -141,8 +183,8 @@ export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
   return (
     <Section>
       <Header style={enterAnimation}>
-        <Logo>SRA</Logo>
-        <SearchForm onSubmit={changeTerm} />
+        <Logo>SchRA</Logo>
+        <HeaderSearchForm onSubmit={changeTerm} />
       </Header>
       {!!params?.term && !!items.length && (
         <ListTitle style={enterAnimation}>Search results for: &apos;{params.term}&apos;</ListTitle>
