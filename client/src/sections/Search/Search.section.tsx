@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useCallback, useEffect, useState } from 'react'
 import { RouteComponentProps, useNavigate, useParams } from '@reach/router'
 import styled from 'styled-components'
-import { useSpring } from 'react-spring'
+import { useSpring, config } from 'react-spring'
 
 import { getItems } from 'services/getItems'
 import { Image } from 'components/Image'
@@ -79,7 +79,7 @@ export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
     [setImagesLoading, setItems],
   )
 
-  const [, setY] = useSpring(() => ({ y: 0, onRest: () => null, onFrame: (props) => props }))
+  const [, setY] = useSpring(() => ({ y: 0, onRest: () => null, onFrame: (props) => props, config: config.slow }))
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
