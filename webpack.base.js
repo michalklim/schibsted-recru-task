@@ -34,6 +34,7 @@ module.exports = (context, isProduction) => ({
     new webpack.ProgressPlugin(),
     new Dotenv({
       systemvars: true,
+      safe: path.resolve(__dirname, '.env.example'),
     }),
     new ForkTsCheckerWebpackPlugin({
       eslint: true,
