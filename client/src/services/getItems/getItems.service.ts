@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import qs from 'querystring'
-import { Item } from 'server/types'
+import { Item } from 'server/common/types'
 
 export const getItems = async (term: string, page: number): Promise<Item[]> => {
   const params = {

@@ -1,10 +1,10 @@
 import { GifsResult, GiphyFetch, SearchOptions } from '@giphy/js-fetch-api'
-import { ITEMS_PER_PAGE } from '../../common'
-import { IItem } from '../../types'
+import { ITEMS_PER_PAGE } from 'common/constants'
+import { Item } from 'common/types'
 
 const gf = new GiphyFetch(process.env.GIPHY_TOKEN || '')
 
-const shapeResponse = (res: GifsResult): IItem[] => {
+const shapeResponse = (res: GifsResult): Item[] => {
   return res.data.map((item) => ({
     type: 'gif',
     id: `${item.id}`,
@@ -32,7 +32,7 @@ const shapeResponse = (res: GifsResult): IItem[] => {
   }))
 }
 
-export const fetchItems = async (term: string, page = 1, options?: SearchOptions): Promise<IItem[]> => {
+export const fetchItems = async (term: string, page = 1, options?: SearchOptions): Promise<Item[]> => {
   const DEFAULT_OPTIONS: SearchOptions = {
     limit: ITEMS_PER_PAGE,
     offset: ITEMS_PER_PAGE * (page - 1),

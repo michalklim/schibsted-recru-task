@@ -1,50 +1,21 @@
-const webpack = require('webpack')
 const pkg = require('../package.json')
 const path = require('path')
-const Dotenv = require('dotenv-webpack')
+const webpackBaseConfig = require('../webpack.base')
+const merge = require('webpack-merge')
 
-module.exports = () => ({
-  plugins: [
-    new webpack.ProgressPlugin(),
-    new Dotenv({
-      systemvars: true,
-    }),
-  ],
-  mode: 'production',
-  target: 'node',
-  devtool: 'source-map',
-  entry: path.resolve(__dirname, 'src', 'server.ts'),
-  output: {
-    path: path.resolve('dist', 'server'),
-    filename: 'index.js',
-    libraryTarget: 'umd',
-    library: pkg.name + '-backend',
-  },
-  module: {
-    rules: [
-      {
-        enforce: 'pre',
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          emitError: true,
-        },
+module.exports = () =>
+  merge(
+    {
+      mode: 'production',
+      target: 'node',
+      devtool: 'source-map',
+      entry: path.resolve(__dirname, 'src', 'server.ts'),
+      output: {
+        path: path.resolve('dist', 'server'),
+        filename: 'index.js',
+        libraryTarget: 'umd',
+        library: pkg.name + '-backend',
       },
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true,
-            configFile: path.resolve('babel.config.js'),
-          },
-        },
-      },
-    ],
-  },
-  resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.json'],
-  },
-})
+    },
+    webpackBaseConfig(__dirname, true),
+  )

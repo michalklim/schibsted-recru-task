@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react'
-import { ImageResponse, Item } from 'server/types'
+import { ImageResponse, Item } from 'server/common/types'
 import styled, { keyframes } from 'styled-components'
 import useIntersection from 'react-use/lib/useIntersection'
 import { useSpring, animated } from 'react-spring'

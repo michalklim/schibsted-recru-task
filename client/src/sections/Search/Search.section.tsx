@@ -5,7 +5,7 @@ import { useSpring, config, animated, useTransition } from 'react-spring'
 
 import { getItems } from 'services/getItems'
 import { Image } from 'components/Image'
-import { Item } from 'server/types'
+import { Item } from 'server/common/types'
 import { Button } from 'components/Button'
 import { SearchForm } from 'components/SearchForm'
 

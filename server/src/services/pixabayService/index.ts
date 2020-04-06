@@ -1,7 +1,8 @@
 import fetch from 'isomorphic-fetch'
 import qs from 'querystring'
-import { ITEMS_PER_PAGE } from '../../common'
-import { IItem } from '../../types'
+
+import { ITEMS_PER_PAGE } from 'common/constants'
+import { Item } from 'common/types'
 
 interface PixabayImage {
   id: number
@@ -34,7 +35,7 @@ interface PixabayResponse {
   hits: PixabayImage[]
 }
 
-const shapeResponse = (res: PixabayResponse): IItem[] => {
+const shapeResponse = (res: PixabayResponse): Item[] => {
   return res.hits.map((item) => ({
     type: 'photo',
     id: `${item.id}`,
@@ -62,7 +63,7 @@ const shapeResponse = (res: PixabayResponse): IItem[] => {
   }))
 }
 
-export const fetchItems = async (term: string, page = 1, options?: {}): Promise<IItem[]> => {
+export const fetchItems = async (term: string, page = 1, options?: {}): Promise<Item[]> => {
   /* eslint-disable @typescript-eslint/camelcase */
   const params = {
     key: process.env.PIXABAY_TOKEN || '',
