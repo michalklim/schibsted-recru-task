@@ -93,28 +93,25 @@ export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
   )
 
   const [, setY] = useSpring(() => ({
+    immediate: false,
     y: window.innerHeight,
+    from: {
+      y: window.scrollY,
+    },
     onFrame: (props: { y: number }) => {
       window.scroll(0, props.y)
     },
+    config: config.slow,
   }))
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     setY({
-      immediate: false,
-      from: {
-        y: window.scrollY,
-      },
       y: window.innerHeight,
       onRest: () => {
         setShowHeader(true)
         fetchNewItems(params.term, params.page, false)
       },
-      onFrame: (props: { y: number }) => {
-        window.scroll(0, props.y)
-      },
-      config: config.slow,
     })
   }, [params.term])
   /* eslint-enable react-hooks/exhaustive-deps */
@@ -133,6 +130,7 @@ export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
     opacity: showHeader ? 1 : 0,
     transform: `translateY(${showHeader ? 0 : -100}%)`,
   })
+
   const itemsTransitions = useTransition(items, (item) => item.id, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
