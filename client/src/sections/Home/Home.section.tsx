@@ -2,6 +2,8 @@ import React, { FunctionComponent } from 'react'
 import { RouteComponentProps, useNavigate } from '@reach/router'
 import styled from 'styled-components'
 
+import giphyAttributionImg from 'static/giphy_attribution.png'
+import pixabayAttributionImg from 'static/pixabay_attribution.png'
 import { SearchForm } from 'components/SearchForm'
 
 const Section = styled.section`
@@ -29,11 +31,27 @@ const Container = styled.div`
 const Heading = styled.h1``
 
 const Footer = styled.footer`
-  flex-grow: 0;
-  flex-shrink: 0;
-  height: 200px;
-  background: red;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: ${({ theme }) => theme.ms(4)} ${({ theme }) => theme.ms(2)};
+  flex-wrap: wrap;
+`
+
+const Attributions = styled.div`
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: ${({ theme }) => theme.ms(0)};
+  align-items: center;
+`
+
+const AttributionImg = styled.img`
+  height: ${({ theme }) => theme.ms(4)};
+  width: auto;
+`
+
+const Sign = styled.small`
+  font-family: ${({ theme }) => theme.typo.secondaryFont};
 `
 
 export const HomeSection: FunctionComponent<RouteComponentProps> = () => {
@@ -49,7 +67,13 @@ export const HomeSection: FunctionComponent<RouteComponentProps> = () => {
         <Heading>Schibsted Recru App</Heading>
         <SearchForm onSubmit={handleSearchFormSubmit} />
       </Container>
-      <Footer></Footer>
+      <Footer>
+        <Attributions>
+          <Sign>made with 🖤 by Michal Klim</Sign>
+          <AttributionImg src={giphyAttributionImg} alt="giphy" />
+          <AttributionImg src={pixabayAttributionImg} alt="pixabay" />
+        </Attributions>
+      </Footer>
     </Section>
   )
 }

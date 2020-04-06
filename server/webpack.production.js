@@ -38,6 +38,7 @@ module.exports = () => ({
           loader: 'babel-loader',
           options: {
             cacheDirectory: true,
+            configFile: path.resolve('babel.config.js'),
           },
         },
       },

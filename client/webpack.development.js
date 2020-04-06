@@ -17,10 +17,21 @@ module.exports = {
   devServer: {
     hot: true,
     historyApiFallback: true,
+    proxy: {
+      '/api/*': 'http://localhost:3000',
+    },
   },
   devtool: 'inline-source-map',
   module: {
     rules: [
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
@@ -28,6 +39,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             cacheDirectory: true,
+            configFile: path.resolve('babel.config.js'),
           },
         },
       },
