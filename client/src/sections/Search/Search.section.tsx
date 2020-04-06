@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useCallback, useEffect, useState } from 'react'
 import { RouteComponentProps, useNavigate, useParams } from '@reach/router'
 import styled from 'styled-components'
-import { useSpring, config, animated } from 'react-spring'
+import { useSpring, config, animated, useTransition } from 'react-spring'
 
 import { getItems } from 'services/getItems'
 import { Image } from 'components/Image'
@@ -15,7 +15,6 @@ const Section = styled.div`
   position: relative;
   margin: 100vh 0 0 0;
   background: ${({ theme }) => theme.colors.primary};
-  overflow: hidden;
 `
 
 const Header = animated(styled.header`
@@ -26,16 +25,23 @@ const Header = animated(styled.header`
   position: sticky;
   top: 0;
   z-index: ${({ theme }) => theme.layers.top};
+  opacity: 0;
+`)
+
+const ListTitle = animated(styled.h3`
+  color: ${({ theme }) => theme.colors.secondary};
+  margin: ${({ theme }) => theme.ms(4)} 10% ${({ theme }) => theme.ms(2)};
+  padding: 0 ${({ theme }) => theme.ms(3)};
 `)
 
 const Logo = styled.h2`
   margin: 0 ${({ theme }) => theme.ms(3)};
 `
 
-const ImageContainer = styled.li`
+const ImageContainer = animated(styled.li`
   max-width: 50%;
   padding: ${({ theme }) => theme.ms(2)};
-`
+`)
 
 const ImagesList = styled.ul`
   margin: 0;
@@ -110,6 +116,7 @@ export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
       onFrame: (props: { y: number }) => {
         window.scroll(0, props.y)
       },
+      config: config.slow,
     })
   }, [params.term])
   /* eslint-enable react-hooks/exhaustive-deps */
@@ -123,17 +130,30 @@ export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
   }, [params.page])
   /* eslint-enable react-hooks/exhaustive-deps */
 
-  const headerAnimation = useSpring({ transform: `translateY(${showHeader ? 0 : -100}%)` })
+  const enterAnimation = useSpring({
+    from: { opacity: 0 },
+    opacity: showHeader ? 1 : 0,
+    transform: `translateY(${showHeader ? 0 : -100}%)`,
+  })
+  const itemsTransitions = useTransition(items, (item) => item.id, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: config.gentle,
+  })
 
   return (
     <Section>
-      <Header style={headerAnimation}>
+      <Header style={enterAnimation}>
         <Logo>SRA</Logo>
         <SearchForm onSubmit={changeTerm} />
       </Header>
+      {!!params?.term && !!items.length && (
+        <ListTitle style={enterAnimation}>Search results for: '{params.term}'</ListTitle>
+      )}
       <ImagesList>
-        {items.map((item) => (
-          <ImageContainer key={item.id}>
+        {itemsTransitions.map(({ item, props, key }) => (
+          <ImageContainer key={key} style={props}>
             <Image item={item} />
           </ImageContainer>
         ))}
