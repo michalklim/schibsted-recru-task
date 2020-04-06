@@ -1,12 +1,13 @@
 import React, { FunctionComponent, useCallback, useEffect, useState } from 'react'
 import { RouteComponentProps, useNavigate, useParams } from '@reach/router'
 import styled from 'styled-components'
-import { useSpring, config } from 'react-spring'
+import { useSpring, config, animated } from 'react-spring'
 
 import { getItems } from 'services/getItems'
 import { Image } from 'components/Image'
 import { Item } from 'server/types'
-import { rgba } from 'polished'
+import { Button } from 'components/Button'
+import { SearchForm } from 'components/SearchForm'
 
 const Section = styled.div`
   min-height: 100vh;
@@ -14,6 +15,21 @@ const Section = styled.div`
   position: relative;
   margin: 100vh 0 0 0;
   background: ${({ theme }) => theme.colors.primary};
+  overflow: hidden;
+`
+
+const Header = animated(styled.header`
+  display: flex;
+  padding: ${({ theme }) => theme.ms(2)} 10%;
+  background: ${({ theme }) => theme.colors.secondary};
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: ${({ theme }) => theme.layers.top};
+`)
+
+const Logo = styled.h2`
+  margin: 0 ${({ theme }) => theme.ms(3)};
 `
 
 const ImageContainer = styled.li`
@@ -34,25 +50,9 @@ const Footer = styled.footer`
   padding: ${({ theme }) => theme.ms(3)} 0 ${({ theme }) => theme.ms(16)};
 `
 
-const NextPageButton = styled.button`
-  padding: ${({ theme }) => theme.ms(1)};
-  border: 4px solid ${({ theme }) => theme.colors.primary};
-  background: ${({ theme }) => theme.colors.secondary};
-  transition: background 0.3s;
-  cursor: pointer;
-
-  &:hover {
-    background: ${({ theme }) => rgba(theme.colors.secondary, 0.6)};
-  }
-  &:disabled,
-  &[disabled] {
-    background: ${({ theme }) => rgba(theme.colors.secondary, 0.4)};
-    pointer-events: none;
-  }
-`
-
 export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
   const [items, setItems] = useState<Item[]>([])
+  const [showHeader, setShowHeader] = useState<boolean>(false)
   const [imagesLoading, setImagesLoading] = useState(true)
   const [isInitialPageChange, setIsInitialPageChange] = useState(true)
 
@@ -62,6 +62,13 @@ export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
   const nextPage = useCallback(() => {
     navigate(`/search/${params.term}/${parseInt(params.page) + 1}`)
   }, [params.page, navigate, params.term])
+
+  const changeTerm = useCallback(
+    (value: string) => {
+      navigate(`/search/${value}/1`)
+    },
+    [navigate],
+  )
 
   const fetchNewItems = useCallback(
     async (term: string, page: number, onlyPageChange: boolean) => {
@@ -79,7 +86,14 @@ export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
     [setImagesLoading, setItems],
   )
 
-  const [, setY] = useSpring(() => ({ y: 0, onRest: () => null, onFrame: (props) => props, config: config.slow }))
+  const [, setY] = useSpring(() => ({
+    y: 0,
+    onRest: () => null,
+    onFrame: (props: { y: number }) => {
+      null
+    },
+    config: config.slow,
+  }))
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
@@ -90,9 +104,10 @@ export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
       },
       y: window.innerHeight,
       onRest: () => {
+        setShowHeader(true)
         fetchNewItems(params.term, params.page, false)
       },
-      onFrame: (props) => {
+      onFrame: (props: { y: number }) => {
         window.scroll(0, props.y)
       },
     })
@@ -108,8 +123,14 @@ export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
   }, [params.page])
   /* eslint-enable react-hooks/exhaustive-deps */
 
+  const headerAnimation = useSpring({ transform: `translateY(${showHeader ? 0 : -100}%)` })
+
   return (
     <Section>
+      <Header style={headerAnimation}>
+        <Logo>SRA</Logo>
+        <SearchForm onSubmit={changeTerm} />
+      </Header>
       <ImagesList>
         {items.map((item) => (
           <ImageContainer key={item.id}>
@@ -119,9 +140,9 @@ export const SearchSection: FunctionComponent<RouteComponentProps> = () => {
       </ImagesList>
       {!!items.length && (
         <Footer>
-          <NextPageButton disabled={imagesLoading} onClick={nextPage}>
+          <Button disabled={imagesLoading} onClick={nextPage}>
             Next page
-          </NextPageButton>
+          </Button>
         </Footer>
       )}
     </Section>

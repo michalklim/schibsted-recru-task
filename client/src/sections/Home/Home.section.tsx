@@ -66,7 +66,7 @@ export const HomeSection: FunctionComponent<RouteComponentProps> = () => {
     if (y <= window.innerHeight) {
       set({ st: y })
     }
-  }, [y])
+  }, [y, set])
 
   const interptOpacity = st.interpolate({
     range: [window.innerHeight / 3, 0],

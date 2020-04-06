@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FunctionComponent, useCallback, useState } from 'react'
 import styled from 'styled-components'
+import { Button } from 'components/Button'
 
 interface Props {
   onSubmit: (query: string) => void
@@ -10,10 +11,7 @@ const Input = styled.input`
   border: 4px solid ${({ theme }) => theme.colors.primary};
 `
 
-const SubmitButton = styled.button`
-  padding: ${({ theme }) => theme.ms(1)};
-  border: 4px solid ${({ theme }) => theme.colors.primary};
-  background: ${({ theme }) => theme.colors.secondary};
+const SubmitButton = styled(Button)`
   margin: 0 0 0 ${({ theme }) => theme.ms(1)};
 `
 
