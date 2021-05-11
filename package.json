@@ -67,7 +67,7 @@
     "es6-promise": "4.2.8",
     "express": "4.17.1",
     "isomorphic-fetch": "2.2.1",
-    "lodash": "4.17.15",
+    "lodash": "4.17.21",
     "morgan": "1.10.0",
     "polished": "3.5.1",
     "querystring": "0.2.0",
